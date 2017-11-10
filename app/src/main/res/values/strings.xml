@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CardStackView</string>
+
+    <string name="get_motion">motion</string>
+</resources>

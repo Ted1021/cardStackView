@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="taewon.navercorp.cardstackview.horizontal.PlatformFragment">
+
+    <taewon.navercorp.cardstackview.cardstack.VerticalCardStackViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical|center_horizontal">
+
+    </taewon.navercorp.cardstackview.cardstack.VerticalCardStackViewPager>
+
+</FrameLayout>
