@@ -1,5 +1,6 @@
 package taewon.navercorp.cardstackview.horizontal;
 
+import android.content.BroadcastReceiver;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ public class PlatformFragment extends Fragment {
 
     private VerticalCardStackViewPager mViewPager;
     private CardStackAdapter mAdapter;
+    private BroadcastReceiver mReceiver;
+
 
     public PlatformFragment() {
         // Required empty public constructor
@@ -38,7 +41,5 @@ public class PlatformFragment extends Fragment {
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(5);
         mViewPager.setClipToPadding(false);
-        mViewPager.setPadding(0, 48, 0, 80);
-        mViewPager.setPageMargin(12);
     }
 }

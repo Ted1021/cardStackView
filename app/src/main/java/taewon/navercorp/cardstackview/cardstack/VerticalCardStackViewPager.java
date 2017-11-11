@@ -12,10 +12,6 @@ import android.view.View;
 
 public class VerticalCardStackViewPager extends ViewPager {
 
-    private float mPastX, mPastY;
-    private boolean isComplete = false;
-    private boolean isHorizontal = false;
-
     public VerticalCardStackViewPager(Context context) {
         super(context);
         init();
@@ -37,12 +33,12 @@ public class VerticalCardStackViewPager extends ViewPager {
         public void transformPage(View page, float position) {
 
             if (position < -1) {
-                page.setAlpha(0);
+//                page.setAlpha(1 + position * 0.2f);
 
             } else {
-                page.setAlpha(1);
-                page.setTranslationX(page.getWidth() * -position);
+//                page.setAlpha(1);
                 float yPosition = position * page.getHeight();
+                page.setTranslationX(page.getWidth() * -position);
                 page.setTranslationY(yPosition);
             }
 
@@ -52,56 +48,28 @@ public class VerticalCardStackViewPager extends ViewPager {
                 page.setTranslationX(-page.getWidth() * position);
                 page.setTranslationY(50 * position);
             }
+
+            if (position < -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+
+            } else if (position <= 0) { // [-1,0]
+                // Use the default slide transition when moving to the left page
+                page.setAlpha(1 + position * 0.7f);
+
+            } else if (position <= 1) { // (0,1]
+                // Fade the page out.
+
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+
+            }
+
+
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-
-//        Intent intent;
-//        switch(ev.getAction()){
-//
-//            case MotionEvent.ACTION_DOWN:
-//
-//                mPastX = ev.getX();
-//                mPastY = ev.getY();
-//                break;
-//
-//            case MotionEvent.ACTION_MOVE:
-//
-//                if(!isComplete){
-//
-//                    float dx = ev.getX() - mPastX;
-//                    float dy = ev.getY() - mPastY;
-//
-//                    if(dx==0){
-//                        break;
-//                    }
-//                    float a = dy / dx;
-//                    Log.d("check_a", a+"");
-//                    if(-1 <= a && a <= 1){
-//                        // 수평
-//                        isHorizontal = true;
-//                    }
-//                    isComplete = true;
-//                    break;
-//                }
-//
-//                Log.d("CHECK", isHorizontal+"");
-//                if(isHorizontal){
-//                    intent = new Intent("motion");
-//                    intent.putExtra("MOTION", ev);
-//                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
-//                }
-////                this.getParent().getParent().requestDisallowInterceptTouchEvent(false);
-////                this.requestDisallowInterceptTouchEvent(true);
-//                break;
-//
-//            case MotionEvent.ACTION_UP:
-//                isHorizontal = false;
-//                isComplete = false;
-//                break;
-//        }
         return super.onTouchEvent(swapXY(ev));
     }
 
@@ -113,5 +81,10 @@ public class VerticalCardStackViewPager extends ViewPager {
         float newY = (ev.getX() / width) * height;
         ev.setLocation(newX, newY);
         return ev;
+    }
+
+    @Override
+    public boolean canScrollHorizontally(int direction) {
+        return false;
     }
 }
