@@ -14,15 +14,15 @@ public class VerticalCardStackViewPager extends ViewPager {
 
     public VerticalCardStackViewPager(Context context) {
         super(context);
-        init();
+        initTransformer();
     }
 
     public VerticalCardStackViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        initTransformer();
     }
 
-    private void init(){
+    private void initTransformer(){
         setPageTransformer(true, new CardStackTransformer());
         setOverScrollMode(OVER_SCROLL_NEVER);
     }
@@ -44,9 +44,9 @@ public class VerticalCardStackViewPager extends ViewPager {
 
             if (position >= 0) {
                 page.setScaleX(0.8f - 0.04f * position);
-                page.setScaleY(0.8f);
+                page.setScaleY(0.8f - 0.04f * position);
                 page.setTranslationX(-page.getWidth() * position);
-                page.setTranslationY(50 * position);
+                page.setTranslationY(80 * position);
             }
 
             if (position < -1) { // [-Infinity,-1)
